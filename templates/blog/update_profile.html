@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="col-md-8">
+    <form action="{% url 'change_profile' id=user.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="hidden" name="next" value="{{ next }}">
+        <input type="submit" class="btn-default" value="Enter">
+    </form>
+</div>
+{% endblock %}
