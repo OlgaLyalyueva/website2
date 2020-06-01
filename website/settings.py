@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'avatar',
+    'easy_thumbnails',
+    'django_registration',
+    'rest_framework',
+    'rest_framework.authtoken',
     'blog',
+    'gallery',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -108,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'uk-ua'
+LANGUAGE_CODE = 'uk-en'
 
 TIME_ZONE = 'Europe/Kiev'
 
@@ -128,3 +132,21 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'blog_login'
 LOGOUT_URL = 'blog_logout'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
+
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'olgalyalyueva@gmail.com'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}

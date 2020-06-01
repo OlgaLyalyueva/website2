@@ -49,3 +49,12 @@ class Comment(models.Model):
     published_date = models.DateTimeField(auto_created=True)
     content = models.TextField()
     fk_post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+
+
+class Avatar(models.Model):
+    avatar = models.ImageField(upload_to='avatar', default='static/blog/images/profile/avatars/default.png')
+    fk_user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Аватарка"
+        verbose_name_plural = "Аватарки"

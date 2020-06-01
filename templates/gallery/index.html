@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% load thumbnail %}
+{% block content %}
+<div class="col-lg-12">
+    <h1 class="page-header">Great Gallery</h1>
+</div>
+<div class="col-md-8">
+    {% for img in photos %}
+    <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+        <a class="thumbnail" href="{{ img.image.url }}" target="_blank">
+            <img class="img" src="{% thumbnail img.image 400x300 crop %}"
+                                        alt="{{ img.description }}"
+                                        title="{{ img.description }}">
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

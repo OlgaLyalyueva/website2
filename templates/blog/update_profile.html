@@ -2,12 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="main-header">
+    <h2>Update Profile</h2>
+    <hr>
+</div>
 <div class="col-md-8">
-    <form action="{% url 'change_profile' id=user.pk %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'update_profile' id=user.pk %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ avatar_form|crispy }}
         {{ form|crispy }}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" class="btn-default" value="Enter">
+        <input type="submit" class="btn btn-primary" value="Update" id="update">
+        <a href="{% url 'profile' id=user.pk %}">Cancel</a>
     </form>
 </div>
 {% endblock %}

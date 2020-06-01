@@ -29,7 +29,14 @@
 
     <!-- Post Content -->
     <p class="lead">{{ post.content }}</p>
-
+    {% if user.is_authenticated %}
+        {% if user.id == post.user_id %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <a href="{% url 'delete_post' id=post.pk %}" class="btn btn-danger">Delete Post</a>
+            </form>
+        {% endif %}
+    {% endif%}
     <hr>
 
     <!-- Blog Comments -->

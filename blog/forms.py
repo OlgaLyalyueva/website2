@@ -1,5 +1,7 @@
+from .models import Post, Comment, User, Avatar
 from django import forms
-from .models import Post, Comment
+from django_registration import forms as reg_forms
+from django.contrib.auth.views import PasswordResetView
 
 
 class PostForm(forms.ModelForm):
@@ -14,4 +16,19 @@ class CommentForm(forms.ModelForm):
         exclude = ('published_date', 'fk_post')
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
 
+
+class RegistrationForm(reg_forms.RegistrationForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['avatar']

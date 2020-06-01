@@ -3,16 +3,19 @@
 
 {% block content %}
 <div class="main-header">
-    <h2>Welcome Back</h2>
+    <h2>Sign Up</h2>
     <hr>
 </div>
 <div class="col-lg-8">
-    <form action="{% url 'blog_login' %}" method="POST">
+    <form action="{% url 'register' %}" method="POST">
         {% csrf_token %}
+        {% if mes %}
+        <h3>{{ mes }}</h3>
+        {% else %}
         {{ form|crispy }}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" class="btn btn-primary" id="update" value="Sign In">
-        <a href="{% url 'password_reset' %}" class="btn-link">Forgot Password?</a>
+        <input type="submit" class="btn-default" value="Submit">
+        {% endif %}
     </form>
 </div>
 {% endblock %}

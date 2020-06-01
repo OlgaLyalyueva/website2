@@ -16,14 +16,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from django.contrib.auth.views import LoginView, LogoutView
-from blog.views import profile
+from blog.views import profile, update_profile
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('login/', LoginView.as_view(), name='blog_login'),
-    path('logout/',  LogoutView.as_view(), name='blog_logout'),
+    path('', include('gallery.urls')),
+    path('login/', auth_views.LoginView.as_view(), name='blog_login'),
+    path('logout/',  auth_views.LogoutView.as_view(), name='blog_logout'),
     path('profile/<int:id>', profile, name='profile'),
-    path('avatar/', include('avatar.urls')),
-]
+    path('profile/<int:id>/', profile, name='profile'),
+    path('profile/<int:id>/updateprofile/', update_profile, name='update_profile'),
+
+    path('accounts/', include('django_registration.backends.activation.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+
+    url(r'^password_reset/$', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    url(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
