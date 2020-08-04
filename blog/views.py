@@ -9,10 +9,18 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-# check addition !!!!!!!
 def category(request, id=None):
     c = get_object_or_404(Category, pk=id)
     posts = Post.objects.filter(category=c).order_by('-published_date')
+    print(len(posts))
+    context = {'posts': posts}
+    context.update(get_categories())
+    return render(request, 'blog/index.html', context)
+
+
+def author(request, id=None):
+    u = get_object_or_404(User, pk=id)
+    posts = Post.objects.filter(user_id=u).order_by('-published_date')
     print(len(posts))
     context = {'posts': posts}
     context.update(get_categories())
