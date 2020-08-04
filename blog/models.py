@@ -15,12 +15,12 @@ class Category(models.Model):
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=30, verbose_name="Заголовок")
+    title = models.CharField(max_length=50, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержимое")
     published_date = models.DateTimeField(auto_created=True, verbose_name="Дата публикации")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Категория")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Автор")
-    image = models.ImageField(upload_to='static/blog/images/', default='static/blog/images/post_default.png', verbose_name='Фото')
+    image = models.ImageField(upload_to='posts', default='static/blog/images/post_default.png', verbose_name='Фото')
     fk_tag = models.ManyToManyField("Tag")
 
     def __str__(self):
@@ -44,7 +44,7 @@ class Tag(models.Model):
 
 
 class Comment(models.Model):
-    image = models.ImageField(upload_to='static/blog/images/comment/', default='static/blog/images/post_default.png')
+    image = models.ImageField(upload_to='comments', default='static/blog/images/post_default.png')
     title = models.CharField(max_length=30)
     published_date = models.DateTimeField(auto_created=True)
     content = models.TextField()
