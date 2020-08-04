@@ -6,7 +6,6 @@
 <div class="col-md-8">
     <h1 class="page-header">
         Page Heading
-        <small>Secondary Text</small>
     </h1>
     {% if posts|length > 0 %}
         {% for post in posts %}
@@ -15,11 +14,11 @@
                 <a href="{% url 'post' id=post.pk %}">{{ post.title }}</a>
             </h2>
             <p class="lead">
-                by <a href="index.php">{{ post.user }}</a>
+                by <a href="{% url 'author' id=post.user_id %}">{{ post.user }}</a>
             </p>
             <p><span class="glyphicon glyphicon-time"></span> {{ post.published_date }}</p>
             <hr>
-            <img class="img-responsive" src="/{{ post.image }}" weight="400" height="230" alt="">
+            <img class="img-responsive" src="{{ post.image.url }}" weight="400" height="230" alt="">
             <hr>
             <p>{{ post.content|truncatewords:20 }}</p>
             <a class="btn btn-primary" href="{% url 'post' id=post.pk %}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
